@@ -2,11 +2,10 @@ package main
 
 import(
     "./proAt"
+    "fmt"
 )
 func main(){
-    url:="http://atcoder.jp"
-    str:=proAt.GetHtml(url)
-    proAt.PauseContest(str)
-
+    contest:=proAt.GetNamedContests("abc",0)
+    fmt.Println(contest)
     //fmt.Println(string(body));
 }
