@@ -5,7 +5,7 @@ import(
     "testing"
     "strings"
     "io/ioutil"
-     "fmt"
+    _ "fmt"
     _ "os"
 )
 
@@ -15,6 +15,13 @@ func TestGetHtml(t *testing.T){
     html:=GetHtml(url)
     if(strings.Index(html,"<h1>Example Domain</h1>")==-1){
      t.Error("error")
+    }
+}
+func TestGetOpenedHtml(t *testing.T){
+    dat, _ := ioutil.ReadFile("./testfiles/index.html")
+    res:=GetOpenedHtml(string(dat))
+    if strings.Index(res,"safjaskjdfla")!=-1{
+        t.Error("something2")
     }
 }
 
@@ -52,7 +59,6 @@ func TestGetContests(t *testing.T){
 func TestNamedContests(t *testing.T){
     dat, _ := ioutil.ReadFile("./testfiles/index.html")
     contests:=GetNamedContests(string(dat),"abc",0)
-    fmt.Println(contests)
     if len(contests)!=5{
         t.Error("cant filter only 5")
     }

@@ -6,6 +6,8 @@ import(
         "io/ioutil"
         "golang.org/x/net/html"
         "strings"
+    _    "log"
+        "fmt"
       )
 
 func GetHtml(_url string) string{
@@ -15,6 +17,14 @@ func GetHtml(_url string) string{
     //fmt.Println(string(body))
     return string(body)
 }
+func GetOpenedHtml(html string)string{
+    start:=strings.Index(html,"<h3>AtCoder Beginner Contest</h3>")
+    end:=strings.Index(html,"<h3>企業コンテスト</h3>")
+    new:=html[start:end]
+    return new
+}
+//*[@id="over"]/div/div/table[1]
+//*[@id="over"]/div/div/table[2]
 func ParseContest(str string) []string{
     res:=make([]string,0)
     r := strings.NewReader(str)
@@ -69,4 +79,17 @@ func GetNamedContests(html string,str string,page int)[]string{
         res=append(res,contests[i])
     }
     return res
+}
+func EchoRecents(){
+    html:=GetHtml("http://atcoder.jp")
+    html=GetOpenedHtml(html)
+    abcs:=GetNamedContests(html,"abc",0)
+    arcs:=GetNamedContests(html,"arc",0)
+    for _,ele:=range(abcs){
+        fmt.Println(ele)
+    }
+    for _,ele:=range(arcs){
+        fmt.Println(ele)
+    }
+
 }
